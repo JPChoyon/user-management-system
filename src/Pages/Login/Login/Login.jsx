@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import gif from "../../../assets/animation.gif";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
