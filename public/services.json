@@ -1,0 +1,38 @@
+[
+  {
+    "name": "John Doe",
+    "description": "Administrator",
+    "price": 1000,
+    "image": "https://i.ibb.co/TT41G2v/munib-saad-vr6rvu-V3-FWw-unsplash.jpg"
+  },
+  {
+    "name": "Jane Smith",
+    "description": "Manager",
+    "price": 800,
+    "image": "https://i.ibb.co/x1KHhhR/linkedin-sales-solutions-p-At-A8xe-i-VM-unsplash.jpg"
+  },
+  {
+    "name": "Bob Johnson",
+    "description": "Employee",
+    "price": 500,
+    "image": "https://i.ibb.co/yQTNKnh/redd-f-v6771a4av-V4-unsplash.jpg"
+  },
+  {
+    "name": "Alice Williams",
+    "description": "Intern",
+    "price": 300,
+    "image": "https://i.ibb.co/fXPN4Br/shipman-northcutt-sg-ZX15-Da8-YE-unsplash.jpg"
+  },
+  {
+    "name": "Charlie Brown",
+    "description": "Consultant",
+    "price": 1200,
+    "image": "https://i.ibb.co/qC8zD6D/christina-wocintechchat-com-Rv-IDSco-R4-Dw-unsplash.jpg"
+  },
+  {
+    "name": "Eva Davis",
+    "description": "Freelancer",
+    "price": 700,
+    "image": "https://i.ibb.co/m5xhPT2/ali-morshedlou-WMD64t-Mfc4k-unsplash.jpg"
+  }
+]
