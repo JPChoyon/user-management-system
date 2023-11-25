@@ -1,28 +1,19 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import gif from "../../../assets/others/authentication2.png";
-import bgImg from "../../../assets/reservation/wood-grain-pattern-gray1x.png";
-// import racaptcha
-import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  validateCaptcha,
-} from "react-simple-captcha";
+import { useContext, useEffect, useState } from "react";
+import gif from "../../../assets/animation.gif";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/Context";
 import { FaGoogle } from "react-icons/fa";
-import useAxiosPublic, { AxiosPublic } from "../../../Hooks/useAxiosPublic";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const [disable, setdisable] = useState(true);
+
   const { loading, emailLogin, googleLogin } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    fetch(loadCaptchaEnginge(6));
-  }, []);
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -38,14 +29,7 @@ const Login = () => {
     });
     navigate(from, { replace: true });
   };
-  const handleCaptcha = (e) => {
-    const user_captcha_value = e.target.value;
-    if (validateCaptcha(user_captcha_value) == true) {
-      setdisable(false);
-    } else {
-      setdisable(true);
-    }
-  };
+
   const handleGoogleLogin = () => {
     googleLogin().then((res) => {
       console.log(res.user);
@@ -63,15 +47,12 @@ const Login = () => {
   };
   return (
     <div>
-      <div
-        className="hero min-h-screen "
-        style={{ backgroundImage: `url(${bgImg})` }}
-      >
-        <div className="hero-content flex-col lg:flex-row">
-          <div className="text-center lg:text-left">
-            <img src={gif} alt="" />
+      <div className="hero min-h-screen ">
+        <div className="hero-content w-full justify-around flex-col lg:flex-row">
+          <div className="text-center lg:text-left flex-1">
+            <img className="h-96" src={gif} alt="" />
           </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl ">
+          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl flex-1 ">
             <form onSubmit={handleLogin} className="card-body">
               <h2 className="text-4xl font-bold text-center">Login</h2>
               <div className="form-control">
@@ -99,25 +80,9 @@ const Login = () => {
                 />
               </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">
-                    <LoadCanvasTemplate />
-                  </span>
-                </label>
-                <input
-                  onBlur={handleCaptcha}
-                  type="text"
-                  name="captcha"
-                  placeholder="input the avobe text"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
               <div className="form-control mt-4">
                 <button
                   type="submit"
-                  disabled={disable}
                   className="btn btn-primary bg-[#D1A054] border-0 hover:bg-white "
                 >
                   Login
