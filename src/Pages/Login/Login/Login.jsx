@@ -83,21 +83,21 @@ const Login = () => {
               <div className="form-control mt-4">
                 <button
                   type="submit"
-                  className="btn btn-primary bg-[#D1A054] border-0 hover:bg-white "
+                  className="btn btn-primary bg-[#6788D8] border-0 hover:bg-white hover:text-black "
                 >
                   Login
                 </button>
               </div>
             </form>
             <Link to={"/signup"}>
-              <p className="text-center text-yellow-500 my-5">
+              <p className="text-center text-[#6788D8] my-5">
                 <small>New here? Create a New Account</small>
               </p>
             </Link>
-            <div>
+            <div className="w-full">
               <button
                 onClick={handleGoogleLogin}
-                className="btn btn-circle btn-outline"
+                className="btn block text-center mx-auto rounded-btn btn-outline text-3xl mb-9"
               >
                 <FaGoogle />
               </button>
