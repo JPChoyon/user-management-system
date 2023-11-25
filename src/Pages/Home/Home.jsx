@@ -1,4 +1,5 @@
 import Banner from "./Banner/Banner";
+import Revew from "./Revew/Revew";
 import Services from "./Services/Services";
 
 
@@ -7,6 +8,7 @@ const Home = () => {
     <div>
       <Banner></Banner>
       <Services></Services>
+      <Revew></Revew>
     </div>
   );
 };
