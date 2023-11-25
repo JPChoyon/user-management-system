@@ -25,9 +25,9 @@ const Footer = () => {
         </div>
       </div>
       <div>
-        <p className="text-center bg-black text-white py-6 ">
-          Copyright ©JP Choyon Khan. All rights reserved 
-          {moment().format(' MMM , YYYY')}
+        <p className="text-center bg-[#C5FFF8] text-gray-700 py-6 ">
+          Copyright ©JP Choyon Khan. All rights reserved
+          {moment().format(" MMM , YYYY")}
         </p>
       </div>
     </div>
