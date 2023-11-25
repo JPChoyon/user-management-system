@@ -11,12 +11,20 @@ const Revew = () => {
       .then((data) => setCorousolData(data));
   }, []);
   return (
-    <div data-aos="zoom-in" data-aos-duration="3000">
-      <Carousel>
-        {corosoulData?.map((corosul) => (
-          <RevewCard key={corosul.id} corosul={corosul}></RevewCard>
-        ))}
-      </Carousel>
+    <div>
+      <div className="py-12">
+        <h2 className="text-4xl text-center font-bold uppercase">
+          {" "}
+          - - - Testimonials - - -{" "}
+        </h2>
+      </div>
+      <div data-aos="zoom-in" data-aos-duration="3000">
+        <Carousel>
+          {corosoulData?.map((corosul) => (
+            <RevewCard key={corosul.id} corosul={corosul}></RevewCard>
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 };
