@@ -15,7 +15,7 @@ const slider = (
     play={true}
     // cancelOnInteraction={false} // should stop playing on user interaction
     interval={6000}
-    className="h-[calc(100vh-80px)]"
+    className="h-[calc(100vh-80px)] z-0"
   >
     <div data-src={slider1} />
     <div data-src={slider2} />

@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import gif from "../../assets/animation.gif";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Context/Context";
+import { updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Signup = () => {
   // State to hold the selected role
   const [selectedRole, setSelectedRole] = useState("");
+  const axiosPublic = useAxiosPublic();
+  const { emailSignup } = useContext(AuthContext);
 
   // Event handler for when the selection changes
   const handleRoleChange = (event) => {
@@ -12,15 +18,37 @@ const Signup = () => {
   };
   const handleSignup = (e) => {
     e.preventDefault();
-   
 
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const photo = e.target.photo.value;
+    const bank = e.target.bank.value;
+    const salary = e.target.salary.value;
 
-    const user = { name, email, password, photo, selectedRole };
+    const user = { name, email, password, photo, selectedRole,bank,salary };
     console.log(user);
+    // validate the password
+    if (
+      !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+        password
+      )
+    ) {
+      toast.error(
+        "Minimum eight characters, at least one letter, one number and one special character"
+      );
+      return;
+    }
+
+    // create user with email and password
+    emailSignup(email, password)
+      .then((result) => {
+        updateProfile(result.user, { displayName: name, photoURL: photo });
+        toast.success("Succesfully account created");
+        Navigate("/");
+      })
+      .catch((err) => console.log(err));
+    axiosPublic.post("/users", user).then((res) => console.log(res.data.data));
   };
   return (
     <div className="hero min-h-screen w-full mx-auto">
@@ -105,7 +133,7 @@ const Signup = () => {
                 <option disabled selected>
                   Choose one
                 </option>
-                <option value="admin">Admin</option>
+                <option disabled value="admin">Admin(only one)</option>
                 <option value="hr">HR</option>
                 <option value="employee">Employee</option>
               </select>
