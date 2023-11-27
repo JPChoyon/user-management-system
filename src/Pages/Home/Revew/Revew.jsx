@@ -14,8 +14,12 @@ const Revew = () => {
     <div>
       <div className="py-12">
         <h2 className="text-4xl text-center font-bold uppercase">
-          {" "}
-          - - - Testimonials - - -{" "}
+          Testimonials
+          <div className="mt-2 mx-auto w-80">
+            <span className="inline-block w-52 h-1 bg-blue-500 rounded-full" />
+            <span className="inline-block w-10 h-1 ml-1 bg-blue-500 rounded-full" />
+            <span className="inline-block w-6 h-1 ml-1 bg-blue-500 rounded-full" />
+          </div>
         </h2>
       </div>
       <div data-aos="zoom-in" data-aos-duration="3000">
