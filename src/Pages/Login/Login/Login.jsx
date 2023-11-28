@@ -5,14 +5,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/Context";
 import { FaGoogle } from "react-icons/fa";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { loading, emailLogin, googleLogin } = useContext(AuthContext);
- 
+  const { emailLogin } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -30,12 +28,6 @@ const Login = () => {
     navigate(from, { replace: true });
   };
 
-  const handleGoogleLogin = () => {
-    googleLogin().then((res) => {
-      console.log(res.user);
-      
-    });
-  };
   return (
     <div>
       <div className="hero min-h-screen ">
@@ -85,14 +77,6 @@ const Login = () => {
                 <small>New here? Create a New Account</small>
               </p>
             </Link>
-            <div className="w-full">
-              <button
-                onClick={handleGoogleLogin}
-                className="btn block text-center mx-auto rounded-btn btn-outline text-3xl mb-9"
-              >
-                <FaGoogle />
-              </button>
-            </div>
           </div>
         </div>
       </div>
