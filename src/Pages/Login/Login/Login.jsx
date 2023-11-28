@@ -4,7 +4,7 @@ import gif from "../../../assets/animation.gif";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/Context";
 import { FaGoogle } from "react-icons/fa";
-import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   const { loading, emailLogin, googleLogin } = useContext(AuthContext);
-  const axiosPublic = useAxiosPublic();
+ 
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -33,16 +33,7 @@ const Login = () => {
   const handleGoogleLogin = () => {
     googleLogin().then((res) => {
       console.log(res.user);
-      const userInfo = {
-        name: res.user?.displayName,
-        email: res.user?.email,
-        photo: res.user?.photoURL,
-      };
-      console.log(userInfo);
-      axiosPublic.post("/users", userInfo).then((res) => {
-        console.log(res.data);
-        navigate("/");
-      });
+      
     });
   };
   return (
