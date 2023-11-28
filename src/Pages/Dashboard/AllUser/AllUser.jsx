@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import SectionHeader from "../../../Component/SectionHeader/SectionHeader";
 import useAxios from "../../../Hooks/useAxios";
 import { MdDeleteOutline } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
@@ -53,11 +52,7 @@ const AllUser = () => {
   };
   return (
     <div className="w-full">
-      <SectionHeader
-        className="w-6/12 mx-auto"
-        title={"mange all bookigs"}
-        subTitle={"How Many?"}
-      ></SectionHeader>
+      
       <div className="uppercase text-3xl flex justify-evenly font-bold">
         <h1>total users : {user.length}</h1>
       </div>
