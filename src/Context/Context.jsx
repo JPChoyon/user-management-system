@@ -1,87 +1,76 @@
+import app from "../../src/Firebase/Firebase.config.js";
 import { createContext, useEffect, useState } from "react";
 import {
-  GithubAuthProvider,
   GoogleAuthProvider,
-  TwitterAuthProvider,
   createUserWithEmailAndPassword,
-  signInWithPopup,
+ 
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  FacebookAuthProvider,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
-import auth from "../../src/Firebase/Firebase.config.js";
+
 
 export const AuthContext = createContext(null);
+import auth from "../../src/Firebase/Firebase.config.js";
+import useAxios from "../Hooks/useAxios.jsx";
 
-// google provider
 const googleProvider = new GoogleAuthProvider();
 
-// github provider
-const githubProvider = new GithubAuthProvider();
-
-// twitter provider
-const twitterProvider = new TwitterAuthProvider();
-
-// facebook Provider
-const facebookProvider = new FacebookAuthProvider();
-
 const Context = ({ children }) => {
-  // google log in popup
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const axiosSecure =useAxios()
+
   const googleLogin = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
-
-  // github login popup
-  const githubLogin = () => {
-    return signInWithPopup(auth, githubProvider);
-  };
-
-  // twitter login popup
-  const twitterLogin = () => {
-    return signInWithPopup(auth, twitterProvider);
-  };
-
-  // facebook login popup
-  const facebookLogin = () => {
-    return signInWithPopup(auth, facebookProvider);
-  };
-
-  // email and password sign up
-  const emailSignup = (email, password) => {
+  const emailSignUp = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // sign in with email and password
   const emailLogin = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // log out user
   const logOut = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
-  // hold user in this useEffect section
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-  }, []);
+ useEffect(() => {
+   const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+     setUser(currentUser);
+     if (currentUser) {
+       const userInfo = currentUser.email;
+       axiosSecure.post("/jwt", userInfo).then((res) => {
+         console.log(res.data);
+         localStorage.setItem("access-token", res.data);
+         setLoading(false);
+       });
+     } else {
+       localStorage.removeItem("access-token");
+       setLoading(false);
+     }
+   });
+   return () => {
+     return unSubscribe();
+   };
+ }, [axiosSecure]);
 
-  const authInfo = {
-    googleLogin,
-    githubLogin,
-    twitterLogin,
+  const authinfo = {
+    emailSignUp,
     emailLogin,
-    emailSignup,
-    facebookLogin,
-    logOut,
     user,
+    logOut,
+    loading,
+    googleLogin,
   };
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authinfo}>{children}</AuthContext.Provider>
   );
 };
 

@@ -3,29 +3,38 @@ import gif from "../../../assets/animation.gif";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/Context";
-import { FaGoogle } from "react-icons/fa";
+
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { emailLogin } = useContext(AuthContext);
+  const { emailLogin,user } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    const captcha = form.captcha.value;
-
-    const value = { email, password, captcha };
-    console.log(value);
+    const user = { email, password };
+   
     emailLogin(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+
     });
-    navigate(from, { replace: true });
+    emailLogin(email, password)
+      .then(() => {
+        toast.success("Succesfully account created");
+        navigate("/");
+      })
+      .catch((err) => toast.error(err.message));
+
+  
+   
   };
 
   return (

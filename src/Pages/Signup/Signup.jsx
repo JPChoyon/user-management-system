@@ -6,6 +6,8 @@ import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=1BvTfDQa4VVtLBkknXYZHy67oE61SMpZNe`;
+
 const Signup = () => {
   // State to hold the selected role
   const [selectedRole, setSelectedRole] = useState("");
@@ -16,7 +18,7 @@ const Signup = () => {
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
     const name = e.target.name.value;
@@ -25,20 +27,34 @@ const Signup = () => {
     const photo = e.target.photo.value;
     const bank = e.target.bank.value;
     const salary = e.target.salary.value;
+    const imageFile = { image: e.image[0]};
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        " content-type": "multipart/form-data",
+      },
+    });
 
-    const user = { name, email, password, photo, selectedRole,bank,salary };
+    const user = {
+      name,
+      email,
+      password,
+      photo: res.data.data.display_url,
+      selectedRole,
+      bank,
+      salary,
+    };
     console.log(user);
     // validate the password
-    if (
-      !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
-        password
-      )
-    ) {
-      toast.error(
-        "Minimum eight characters, at least one letter, one number and one special character"
-      );
-      return;
-    }
+    // if (
+    //   !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+    //     password
+    //   )
+    // ) {
+    //   toast.error(
+    //     "Minimum eight characters, at least one letter, one number and one special character"
+    //   );
+    //   return;
+    // }
 
     // create user with email and password
     emailSignup(email, password)
@@ -100,10 +116,10 @@ const Signup = () => {
                 <span className="label-text">photo</span>
               </label>
               <input
-                type="text"
+                type="file"
                 name="photo"
                 placeholder="url here"
-                className="input input-bordered"
+                className="input "
                 required
               />
             </div>
@@ -133,7 +149,9 @@ const Signup = () => {
                 <option disabled selected>
                   Choose one
                 </option>
-                <option disabled value="admin">Admin(only one)</option>
+                <option disabled value="admin">
+                  Admin(only one)
+                </option>
                 <option value="hr">HR</option>
                 <option value="employee">Employee</option>
               </select>

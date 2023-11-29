@@ -41,8 +41,12 @@ const Router = createBrowserRouter([
     ),
     children: [
       {
-        path: "alluser",
+        path: "all-user",
         element: <AllUser></AllUser>,
+      },
+      {
+        path: "contact",
+        element: <Contact></Contact>,
       },
     ],
   },
