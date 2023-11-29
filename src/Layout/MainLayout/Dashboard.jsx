@@ -1,18 +1,14 @@
-import {
-  FaBookOpen,
-  FaHome,
-  FaList,
-  FaMailBulk,
-  FaUser,
-  FaWallet,
-} from "react-icons/fa";
+import { FaHome, FaList, FaMailBulk, FaUser } from "react-icons/fa";
 
-import { MdReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
-const [isAdmin] = useAdmin();
+import useEmployee from "../../Hooks/useEmployee";
+import useHr from "../../Hooks/useHr";
 
 const Dashboard = () => {
+  const [isAdmin] = useAdmin();
+  const [isHr] = useHr();
+  const [isEmployee] = useEmployee();
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -91,6 +87,7 @@ const Dashboard = () => {
             ) : (
               <></>
             )}
+            
             {isAdmin ? (
               <>
                 <NavLink
