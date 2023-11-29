@@ -27,6 +27,7 @@ const Signup = () => {
     const photo = e.target.photo.value;
     const bank = e.target.bank.value;
     const salary = e.target.salary.value;
+    console.log(e);
     const imageFile = { image: e.image[0]};
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
