@@ -6,6 +6,7 @@ import { AuthContext } from "../../../Context/Context";
 
 import axios from "axios";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,10 +29,25 @@ const Login = () => {
     });
     emailLogin(email, password)
       .then(() => {
-        toast.success("Succesfully account created");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "logged in successfully",
+          showConfirmButton: false,
+          timer: 500,
+        });
         navigate("/");
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => {
+        toast.error(err.message)
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "password incorrect",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
 
   
    
@@ -39,6 +55,7 @@ const Login = () => {
 
   return (
     <div>
+      
       <div className="hero min-h-screen ">
         <div className="hero-content w-full justify-around flex-col lg:flex-row">
           <div className="text-center lg:text-left flex-1">

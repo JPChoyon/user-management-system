@@ -1,17 +1,16 @@
 import {
   FaBookOpen,
-  FaCalendar,
   FaHome,
   FaList,
   FaMailBulk,
-  FaShoppingCart,
   FaUser,
   FaWallet,
 } from "react-icons/fa";
-import { IoBag, IoMenu } from "react-icons/io5";
+
 import { MdReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
-const isAdmin = true;
+import useAdmin from "../../Hooks/useAdmin";
+const [isAdmin] = useAdmin();
 
 const Dashboard = () => {
   return (
@@ -35,7 +34,63 @@ const Dashboard = () => {
           ></label>
           <ul className="menu p-4 w-80 min-h-full bg-[#08D9D6] text-base-content">
             {/* Sidebar content here */}
-            
+
+            {isEmployee ? (
+              <>
+                <NavLink
+                  to={"/"}
+                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
+                >
+                  <FaHome></FaHome>
+                  <li>Employee Home</li>
+                </NavLink>
+                <NavLink
+                  to={"manage-items"}
+                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
+                >
+                  <FaList></FaList>
+                  <li>manage items</li>
+                </NavLink>
+
+                <NavLink
+                  to={"all-user"}
+                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
+                >
+                  <FaUser></FaUser>
+                  <li>all users</li>
+                </NavLink>
+              </>
+            ) : (
+              <></>
+            )}
+            {isHr ? (
+              <>
+                <NavLink
+                  to={"/"}
+                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
+                >
+                  <FaHome></FaHome>
+                  <li>HR Home</li>
+                </NavLink>
+                <NavLink
+                  to={"manage-items"}
+                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
+                >
+                  <FaList></FaList>
+                  <li>manage items</li>
+                </NavLink>
+
+                <NavLink
+                  to={"all-user"}
+                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
+                >
+                  <FaUser></FaUser>
+                  <li>all users</li>
+                </NavLink>
+              </>
+            ) : (
+              <></>
+            )}
             {isAdmin ? (
               <>
                 <NavLink
@@ -52,7 +107,7 @@ const Dashboard = () => {
                   <FaList></FaList>
                   <li>manage items</li>
                 </NavLink>
-                
+
                 <NavLink
                   to={"all-user"}
                   className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
@@ -62,40 +117,9 @@ const Dashboard = () => {
                 </NavLink>
               </>
             ) : (
-              <>
-                <NavLink
-                  to={"/"}
-                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
-                >
-                  <FaHome></FaHome>
-                  <li>user Home</li>
-                </NavLink>
-                
-                <NavLink
-                  to={"payment"}
-                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
-                >
-                  <FaWallet></FaWallet>
-                  <li>payment history</li>
-                </NavLink>
-               
-                <NavLink
-                  to={"review"}
-                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
-                >
-                  <MdReviews></MdReviews>
-                  <li>add review</li>
-                </NavLink>
-
-                <NavLink
-                  to={"my-booking"}
-                  className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
-                >
-                  <FaBookOpen></FaBookOpen>
-                  <li>my booking</li>
-                </NavLink>
-              </>
+              <></>
             )}
+
             <div className="divider py-8 divide-red-50"></div>
             <NavLink
               to={"/"}
@@ -104,7 +128,7 @@ const Dashboard = () => {
               <FaHome></FaHome>
               <li>Home</li>
             </NavLink>
-           
+
             <NavLink
               to={"contact"}
               className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
