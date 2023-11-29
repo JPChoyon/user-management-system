@@ -3,13 +3,11 @@ import { createContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
- 
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-
 
 export const AuthContext = createContext(null);
 import auth from "../../src/Firebase/Firebase.config.js";
@@ -20,7 +18,7 @@ const googleProvider = new GoogleAuthProvider();
 const Context = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const axiosSecure =useAxios()
+  const axiosSecure = useAxios();
 
   const googleLogin = () => {
     setLoading(true);
@@ -41,25 +39,24 @@ const Context = ({ children }) => {
     return signOut(auth);
   };
 
- useEffect(() => {
-   const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-     setUser(currentUser);
-     if (currentUser) {
-       const userInfo = currentUser.email;
-       axiosSecure.post("/jwt", userInfo).then((res) => {
-         console.log(res.data);
-         localStorage.setItem("access-token", res.data);
-         setLoading(false);
-       });
-     } else {
-       localStorage.removeItem("access-token");
-       setLoading(false);
-     }
-   });
-   return () => {
-     return unSubscribe();
-   };
- }, [axiosSecure]);
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        const userInfo = currentUser.email;
+        axiosSecure.post("/jwt", userInfo).then((res) => {
+          localStorage.setItem("access-token", res.data);
+          setLoading(false);
+        });
+      } else {
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      }
+    });
+    return () => {
+      return unSubscribe();
+    };
+  }, [axiosSecure]);
 
   const authinfo = {
     emailSignUp,
