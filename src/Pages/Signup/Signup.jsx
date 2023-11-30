@@ -6,18 +6,19 @@ import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=1BvTfDQa4VVtLBkknXYZHy67oE61SMpZNe`;
+// const image_hosting_api = `https://api.imgbb.com/1/upload?key=1BvTfDQa4VVtLBkknXYZHy67oE61SMpZNe`;
 
 const Signup = () => {
   // State to hold the selected role
   const [selectedRole, setSelectedRole] = useState("");
   const axiosPublic = useAxiosPublic();
-  const { emailSignup } = useContext(AuthContext);
+  const { emailSignUp } = useContext(AuthContext);
 
   // Event handler for when the selection changes
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
+
   const handleSignup = async (e) => {
     e.preventDefault();
 
@@ -28,18 +29,18 @@ const Signup = () => {
     const bank = e.target.bank.value;
     const salary = e.target.salary.value;
     console.log(e);
-    const imageFile = { image: e.image[0]};
-    const res = await axiosPublic.post(image_hosting_api, imageFile, {
-      headers: {
-        " content-type": "multipart/form-data",
-      },
-    });
+    // const imageFile = { image: e.image[0]};
+    // const res = await axiosPublic.post(image_hosting_api, imageFile, {
+    //   headers: {
+    //     " content-type": "multipart/form-data",
+    //   },
+    // });
 
     const user = {
       name,
       email,
       password,
-      photo: res.data.data.display_url,
+      photo,
       selectedRole,
       bank,
       salary,
@@ -58,7 +59,7 @@ const Signup = () => {
     // }
 
     // create user with email and password
-    emailSignup(email, password)
+    emailSignUp(email, password)
       .then((result) => {
         updateProfile(result.user, { displayName: name, photoURL: photo });
         toast.success("Succesfully account created");
@@ -117,10 +118,10 @@ const Signup = () => {
                 <span className="label-text">photo</span>
               </label>
               <input
-                type="file"
+                type="text"
                 name="photo"
                 placeholder="url here"
-                className="input "
+                className="input input-bordered "
                 required
               />
             </div>

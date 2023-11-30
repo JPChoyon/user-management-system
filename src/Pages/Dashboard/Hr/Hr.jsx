@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
 import { MdDeleteOutline } from "react-icons/md";
-import { GrUserAdmin } from "react-icons/gr";
+
 import Swal from "sweetalert2";
 import { ImCross } from "react-icons/im";
 
-const AllUser = () => {
+const Hr = () => {
   const axiosSecure = useAxios();
   const { data: user = [], refetch } = useQuery({
     queryKey: ["user"],
@@ -14,19 +14,7 @@ const AllUser = () => {
       return res.data;
     },
   });
-  const handleHr = (id) => {
-    axiosSecure.patch(`/users/hr/${id}`).then((res) => {
-      console.log(res);
-      if (res.data.modifiedCount > 0) {
-        refetch();
-        Swal.fire({
-          icon: "success",
-          title: "success",
-          text: "Now this persons are HR",
-        });
-      }
-    });
-  };
+  
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -54,7 +42,7 @@ const AllUser = () => {
   return (
     <div className="w-full">
       <div className="uppercase text-3xl flex justify-evenly font-bold">
-        <h1>total Users : {user.length}</h1>
+        <h1>total Employee : {user.length}</h1>
       </div>
       <div className="w-full">
         <div className="overflow-x-auto mx-auto">
@@ -67,7 +55,7 @@ const AllUser = () => {
                 <th>Email</th>
                 <th>Bank Account</th>
                 <th>verify</th>
-                <th>Role</th>
+                
                 <th>Salary</th>
                 <th>Action</th>
               </tr>
@@ -102,25 +90,7 @@ const AllUser = () => {
                       </div>
                     </div>
                   </td>
-                  <td>
-                    {user.selectedRole === "admin" ||
-                    user.selectedRole === "hr" ? (
-                      <>
-                        <button className="btn bg-yellow-500 text-white  hover:text-black">
-                          {user.selectedRole}
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button
-                          onClick={() => handleHr(user._id)}
-                          className="btn bg-yellow-500 text-white  hover:text-black"
-                        >
-                          <GrUserAdmin />
-                        </button>
-                      </>
-                    )}
-                  </td>
+                  
                   <td>
                     <div>
                       <div className="font-bold">{user.salary}</div>
@@ -144,4 +114,4 @@ const AllUser = () => {
   );
 };
 
-export default AllUser;
+export default Hr;

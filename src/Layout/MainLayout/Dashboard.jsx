@@ -1,5 +1,7 @@
-import { FaHome, FaList, FaMailBulk, FaUser } from "react-icons/fa";
-
+import { FaHistory, FaHome, FaList, FaMailBulk, FaUser } from "react-icons/fa";
+import { BsFillFileEarmarkSpreadsheetFill } from "react-icons/bs";
+import { GiProgression } from "react-icons/gi";
+import { GrUserWorker } from "react-icons/gr";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../Hooks/useAdmin";
 import useEmployee from "../../Hooks/useEmployee";
@@ -41,19 +43,19 @@ const Dashboard = () => {
                   <li>Employee Home</li>
                 </NavLink>
                 <NavLink
-                  to={"manage-items"}
+                  to={"work-sheet"}
                   className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
                 >
-                  <FaList></FaList>
-                  <li>manage items</li>
+                  <BsFillFileEarmarkSpreadsheetFill />
+                  <li>Work Sheet</li>
                 </NavLink>
 
                 <NavLink
-                  to={"all-user"}
+                  to={"payment-history"}
                   className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
                 >
-                  <FaUser></FaUser>
-                  <li>all users</li>
+                  <FaHistory />
+                  <li>Payment History</li>
                 </NavLink>
               </>
             ) : (
@@ -69,25 +71,25 @@ const Dashboard = () => {
                   <li>HR Home</li>
                 </NavLink>
                 <NavLink
-                  to={"manage-items"}
+                  to={"employee-list"}
                   className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
                 >
-                  <FaList></FaList>
-                  <li>manage items</li>
+                  <GrUserWorker />
+                  <li>Employee List</li>
                 </NavLink>
 
                 <NavLink
-                  to={"all-user"}
+                  to={"progress"}
                   className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
                 >
-                  <FaUser></FaUser>
-                  <li>all users</li>
+                  <GiProgression />
+                  <li>Progress</li>
                 </NavLink>
               </>
             ) : (
               <></>
             )}
-            
+
             {isAdmin ? (
               <>
                 <NavLink
@@ -98,11 +100,11 @@ const Dashboard = () => {
                   <li>Admin Home</li>
                 </NavLink>
                 <NavLink
-                  to={"manage-items"}
+                  to={"details"}
                   className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
                 >
                   <FaList></FaList>
-                  <li>manage items</li>
+                  <li>Details </li>
                 </NavLink>
 
                 <NavLink
@@ -110,7 +112,7 @@ const Dashboard = () => {
                   className="uppercase text-2xl py-3 flex items-center gap-2 text-black "
                 >
                   <FaUser></FaUser>
-                  <li>all users</li>
+                  <li>all employee list</li>
                 </NavLink>
               </>
             ) : (
