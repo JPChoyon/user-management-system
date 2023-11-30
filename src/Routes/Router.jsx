@@ -11,6 +11,8 @@ import ErrorPage from "../Pages/ErrorPage";
 import Details from "../Pages/Dashboard/Admin/Details/Details";
 import Hr from "../Pages/Dashboard/Hr/Hr";
 import Progress from "../Pages/Dashboard/Hr/Progress";
+import WorkSheet from "../Pages/Dashboard/Employee/WorkSheet";
+import Payment from "../Pages/Dashboard/Employee/Payment";
 
 const Router = createBrowserRouter([
   {
@@ -59,11 +61,19 @@ const Router = createBrowserRouter([
       },
       {
         path: "employee-list",
-        element:<Hr></Hr>
+        element: <Hr></Hr>,
       },
       {
-        path: 'progress',
-        element:<Progress></Progress>
+        path: "progress",
+        element: <Progress></Progress>,
+      },
+      {
+        path: "work-sheet",
+        element: <WorkSheet></WorkSheet>,
+      },
+      {
+        path: "payment-history",
+        element:<Payment></Payment>
       },
     ],
   },
